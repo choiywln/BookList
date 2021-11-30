@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.booklist.databinding.ActivityMainBinding;
 import com.google.gson.Gson;
@@ -32,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
             String jsonString = readFromAssets("books.json");
             Gson gson = new Gson();
             BookList = gson.fromJson(jsonString, new TypeToken<List<BookItem>>(){}.getType());
+            Log.i("TEST", "" + BookList.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        BookAdapter adapter = new BookAdapter(this, BookList);
+        BookAdapter adapter = new BookAdapter(BookList);
         binding.reyclerView.setAdapter(adapter);
 
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

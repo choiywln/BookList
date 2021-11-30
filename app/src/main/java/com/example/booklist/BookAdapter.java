@@ -1,6 +1,7 @@
 package com.example.booklist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +22,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
-    Context context;
-    LayoutInflater layoutInflater;
     ArrayList<BookItem> BookList;
 
-    public BookAdapter(Context context, ArrayList<BookItem> data){
-//        Context = context;
+    public BookAdapter(ArrayList<BookItem> data){
         BookList = data;
-//        LayoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
@@ -44,10 +41,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         holder.binding.txtTitle.setText(BookList.get(position).getTitle());
         holder.binding.txtAuthor.setText(BookList.get(position).getAuthor());
         holder.binding.txtDescription.setText(BookList.get(position).getDescription());
+        Log.i("POSITION", "" + position);
 
-        ImageView imageView = holder.binding.imgBook.findViewById(R.id.img_book);
-        Glide.with(layoutInflater.inflate(R.layout.activity_main, null))
-                .load(BookList.get(position).getImage()).into(imageView);
+        Glide.with(holder.binding.imgBook)
+                .load(BookList.get(position).getImage())
+                .into(holder.binding.imgBook);
+
     }
 
     @Override
